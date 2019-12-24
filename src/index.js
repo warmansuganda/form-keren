@@ -1,22 +1,33 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Provider } from "react-redux";
+import Builder from "./components/FormBuilder";
+import Generator from "./components/FormGenerator";
+import store from "./store";
 
-import styles from './styles.css'
+import "react-rangeslider/lib/index.css";
+import './assets/css/font-awesome.min.css';
+import "./assets/css/bootstrap.min.css";
+import "./App.scss";
 
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
+const FormBuilder = ({ onSubmit, items }) => (
+    <Builder
+      onSubmit={onSubmit}
+      items={items}
+    />
+)
 
-  render() {
-    const {
-      text
-    } = this.props
+const FormGenerator = ({
+	formData,
+	responseData,
+	readOnly,
+	onSubmit
+}) => (
+    <Generator
+        formData={formData}
+        responseData={responseData}
+        readOnly={readOnly}
+        onSubmit={onSubmit}
+    />
+)
 
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
-}
+export { FormBuilder, FormGenerator }

@@ -23,7 +23,7 @@ export default {
     }
   ],
   plugins: [
-    external(),
+    external(['uuid']),
     postcss({
       modules: true
     }),
@@ -33,7 +33,19 @@ export default {
       exclude: 'node_modules/**',
       plugins: [ 'external-helpers' ]
     }),
-    resolve(),
-    commonjs()
+    resolve({
+      jsnext: true,
+      main: true,
+      browser: true,
+    }),
+    commonjs({
+        namedExports: {
+            'node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer'],
+            'node_modules/draft-js/lib/Draft.js': ['EditorState', 'convertFromRaw', 'convertToRaw', 'ContentState'],
+            'node_modules/lodash/lodash.js': ['filter', 'map'],
+            'node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.js': ['Editor'],
+            // 'node_modules/react-dnd/dist/esm/index.js': ['DragDropContext'],
+        }
+    })
   ]
 }
